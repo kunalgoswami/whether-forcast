@@ -1,0 +1,2 @@
+ocument.getElementById("counter").innerHTML = Number(document.getElementById("counter").innerHTML)+
+document.getElementById("price").innerHTML

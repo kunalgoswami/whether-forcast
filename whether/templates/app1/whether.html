@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>weather</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+</head>
+
+<body>
+  <nav class="row" style="background: black; color: white;">
+    <h1 class="col-md-3 text-center">weather</h1>
+  </nav>
+  <br/>
+  <br/>
+  <center class="col-md-3">
+      <div class="input-group ">
+        <input type="text" class="form-control " name="city" id="id_city" placeholder="Enter city name">
+        <div class="input-group-btn">
+            <button class="btn btn-default" onclick="getweather()">
+            <span class="glyphicon glyphicon-search"></span>
+          </button>
+        </div>
+
+  </center>
+  <div class="row">
+    <br>
+ 
+    <div id="wtable" class="col-md-5 col-md-offset-3 " style='background:coral; font-size:large ;' >
+        <h2 style='text-align: center; color:white;'><strong>{{city}}</strong></h2>
+        <h1 class='btn btn-info'>country code : </h1><span> {{country_code}}</span><hr>
+        <h1  class='btn btn-info'>temp : </h1><span> {{temp}}</span><hr>
+        <h1 class='btn btn-info'>pressure :  </h1><span> {{pressure}}</span><hr>
+        <h1 class='btn btn-info'>humidity : </h1> <span> {{humidity}} </span><hr>
+        <h1 class='btn btn-info'>temp_min : </h1> <span> {{temp_min}} </span><hr>
+        <h1 class='btn btn-info'>speed : </h1> <span> {{speed}} </span><hr>
+        <h1 class='btn btn-info'>description : </h1> <span> {{description}}</span>
+        <img src='http://openweathermap.org/img/w/{{icon}}.png' alt='Cinque Terre' style='width:70px;'>
+
+    </div>
+
+  </div>
+<script>
+  function getweather(){
+    var city=document.getElementById("id_city").value;
+      $.ajax({
+        data: {"city":city,csrfmiddlewaretoken:'{{csrf_token}}'},
+        method: "POST",
+        url: "/weather/",
+        success: function(response)
+        {
+          
+        document.getElementById("wtable").innerHTML = response;
+        $("#wtable").show();
+       
+        }
+  });
+  }
+
+ $(document).ready(function(){
+   $("#wtable").hide();
+ })
+</script>
+
+
+</body>
+
+</html>
